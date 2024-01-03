@@ -77,7 +77,7 @@ class Nav_Tracker(Node):
                         range_min_angle = range_min_angle - 360  # -180 ~ 180
             print('min:', range_min, 'index: ', range_min_index, 'angle: ', range_min_angle)
 
-            range_threshold = 0.2
+            range_threshold = 0.25
             angle_threshold = 10
             twist = Twist()
             if range_min > range_threshold:
@@ -91,7 +91,7 @@ class Nav_Tracker(Node):
             if range_min < range_threshold and abs(range_min_angle) < angle_threshold:
                 sys_state = NAV
                 print('Arrived at the pole!')
-                time.sleep(2.0)
+                time.sleep(1.0)
         else: 
             self.nav_pose()
             lidar_update_time = 0
@@ -108,8 +108,8 @@ def main(args=None):
     initial_pose.header.stamp = navigator.get_clock().now().to_msg()
     initial_pose.pose.position.x = -3.809
     initial_pose.pose.position.y = 0.508
-    initial_pose.pose.orientation.z = -0.009804245494456227
-    initial_pose.pose.orientation.w = 0.9999519372301273
+    initial_pose.pose.orientation.z = -0.3039914242143772
+    initial_pose.pose.orientation.w = 0.9526747682205688
     navigator.setInitialPose(initial_pose)
     nav_tracker = Nav_Tracker()
     rclpy.spin(nav_tracker)
